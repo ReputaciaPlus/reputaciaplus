@@ -16,10 +16,22 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        @keyframes float-horizontal {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(20px); }
+            100% { transform: translateX(0); }
+        }
+        
+        @keyframes float-vertical {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0); }
+        }
+        
+        @keyframes float-diagonal {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(15px, -15px); }
+            100% { transform: translate(0, 0); }
         }
         
         @keyframes pulse {
@@ -33,23 +45,19 @@
             50% { transform: translateY(-15px); }
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes wiggle {
+        @keyframes smooth-wiggle {
             0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(3deg); }
-            75% { transform: rotate(-3deg); }
+            25% { transform: rotate(1.5deg); }
+            75% { transform: rotate(-1.5deg); }
         }
         
         .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
-        .animate-float { animation: float 6s ease-in-out infinite; }
-        .animate-pulse { animation: pulse 3s ease-in-out infinite; }
+        .animate-float-horizontal { animation: float-horizontal 8s ease-in-out infinite; }
+        .animate-float-vertical { animation: float-vertical 10s ease-in-out infinite; }
+        .animate-float-diagonal { animation: float-diagonal 12s ease-in-out infinite; }
+        .animate-pulse { animation: pulse 4s ease-in-out infinite; }
         .animate-bounce { animation: bounce 3s ease-in-out infinite; }
-        .animate-spin { animation: spin 15s linear infinite; }
-        .animate-wiggle { animation: wiggle 2s ease-in-out infinite; }
+        .animate-smooth-wiggle { animation: smooth-wiggle 3s ease-in-out infinite; }
         
         .social-icon { transition: all 0.3s; }
         .social-icon:hover { transform: scale(1.2); }
@@ -90,13 +98,26 @@
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 15px -3px rgba(0,0,0,0.05);
         }
         
-        .decorative-icon {
-            position: absolute;
-            opacity: 0.07;
-            z-index: 0;
+        .floating-social {
+            position: fixed;
+            opacity: 0.08;
+            z-index: -1;
             pointer-events: none;
-            animation: float 15s ease-in-out infinite;
+            filter: blur(1px);
         }
+        
+        .floating-social.vk { color: #4c75a3; }
+        .floating-social.ok { color: #f78220; }
+        .floating-social.telegram { color: #0088cc; }
+        .floating-social.yandex { color: #ffcc00; }
+        .floating-social.rutube { color: #ff0000; }
+        .floating-social.dzen { color: #005aff; }
+        .floating-social.gis { color: #00a650; }
+        .floating-social.mailru { color: #ea4335; }
+        .floating-social.avito { color: #ff6b00; }
+        .floating-social.hh { color: #0077b5; }
+        .floating-social.cian { color: #4c75a3; }
+        .floating-social.tiktok { color: #69C9D0; }
         
         .decorative-star {
             position: absolute;
@@ -106,27 +127,9 @@
             animation: pulse 4s ease-in-out infinite;
         }
         
-        .decorative-icon.vk { color: #4c75a3; animation-delay: 0s; }
-        .decorative-icon.ok { color: #f78220; animation-delay: 2s; }
-        .decorative-icon.telegram { color: #0088cc; animation-delay: 4s; }
-        .decorative-icon.yandex { color: #ffcc00; animation-delay: 6s; }
-        .decorative-icon.rutube { color: #ff0000; animation-delay: 8s; }
-        .decorative-icon.dzen { color: #005aff; animation-delay: 10s; }
-        .decorative-icon.gis { color: #00a650; animation-delay: 12s; }
-        .decorative-icon.mailru { color: #ea4335; animation-delay: 14s; }
-        .decorative-icon.avito { color: #ff6b00; animation-delay: 16s; }
-        .decorative-icon.hh { color: #0077b5; animation-delay: 18s; }
-        .decorative-icon.cian { color: #4c75a3; animation-delay: 20s; }
-        .decorative-icon.tiktok { color: #69C9D0; animation-delay: 22s; }
-        
         .decorative-star.gold { color: #FFD700; animation-duration: 5s; }
         .decorative-star.silver { color: #C0C0C0; animation-duration: 6s; }
         .decorative-star.bronze { color: #CD7F32; animation-duration: 7s; }
-        
-        .floating-emoji {
-            display: inline-block;
-            animation: float 4s ease-in-out infinite;
-        }
         
         .floating-star {
             animation: bounce 4s ease-in-out infinite;
@@ -146,24 +149,29 @@
         
         .emoji-animation {
             display: inline-block;
-            animation: wiggle 2s ease-in-out infinite;
+            animation: smooth-wiggle 2.5s ease-in-out infinite;
         }
     </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Декоративные элементы по всему сайту -->
-    <div class="fixed top-10 left-5 decorative-icon vk text-4xl animate-float" style="animation-delay: 0s"><i class="fab fa-vk"></i></div>
-    <div class="fixed top-20 right-5 decorative-icon ok text-3xl animate-float" style="animation-delay: 2s"><i class="fab fa-odnoklassniki"></i></div>
-    <div class="fixed bottom-20 left-10 decorative-icon telegram text-2xl animate-float" style="animation-delay: 4s"><i class="fab fa-telegram"></i></div>
-    <div class="fixed bottom-10 right-15 decorative-icon yandex text-xl animate-float" style="animation-delay: 6s"><i class="fab fa-yandex"></i></div>
-    <div class="fixed top-40 right-20 decorative-icon rutube text-2xl animate-float" style="animation-delay: 8s"><i class="fas fa-play-circle"></i></div>
-    <div class="fixed bottom-30 left-20 decorative-icon dzen text-xl animate-float" style="animation-delay: 10s"><i class="fas fa-newspaper"></i></div>
-    <div class="fixed top-30 left-15 decorative-icon gis text-xl animate-float" style="animation-delay: 12s"><i class="fas fa-map-marked-alt"></i></div>
-    <div class="fixed bottom-25 right-5 decorative-icon mailru text-xl animate-float" style="animation-delay: 14s"><i class="fas fa-envelope"></i></div>
-    <div class="fixed top-15 right-15 decorative-icon avito text-xl animate-float" style="animation-delay: 16s"><i class="fas fa-store"></i></div>
-    <div class="fixed bottom-15 left-15 decorative-icon hh text-xl animate-float" style="animation-delay: 18s"><i class="fas fa-briefcase"></i></div>
-    <div class="fixed top-25 right-25 decorative-icon cian text-xl animate-float" style="animation-delay: 20s"><i class="fas fa-home"></i></div>
-    <div class="fixed bottom-25 left-25 decorative-icon tiktok text-xl animate-float" style="animation-delay: 22s"><i class="fab fa-tiktok"></i></div>
+    <!-- Плавающие социальные иконки по всей странице -->
+    <div class="floating-social vk text-xl animate-float-horizontal" style="top: 15%; left: 5%; animation-duration: 8s; animation-delay: 0s;"><i class="fab fa-vk"></i></div>
+    <div class="floating-social ok text-lg animate-float-vertical" style="top: 25%; right: 8%; animation-duration: 10s; animation-delay: 1s;"><i class="fab fa-odnoklassniki"></i></div>
+    <div class="floating-social telegram text-xl animate-float-diagonal" style="bottom: 20%; left: 10%; animation-duration: 12s; animation-delay: 2s;"><i class="fab fa-telegram"></i></div>
+    <div class="floating-social yandex text-lg animate-float-horizontal" style="bottom: 15%; right: 12%; animation-duration: 9s; animation-delay: 3s;"><i class="fab fa-yandex"></i></div>
+    <div class="floating-social rutube text-xl animate-float-vertical" style="top: 35%; right: 15%; animation-duration: 11s; animation-delay: 4s;"><i class="fas fa-play-circle"></i></div>
+    <div class="floating-social dzen text-lg animate-float-diagonal" style="bottom: 25%; left: 20%; animation-duration: 13s; animation-delay: 5s;"><i class="fas fa-newspaper"></i></div>
+    <div class="floating-social gis text-lg animate-float-horizontal" style="top: 20%; left: 25%; animation-duration: 10s; animation-delay: 6s;"><i class="fas fa-map-marked-alt"></i></div>
+    <div class="floating-social mailru text-xl animate-float-vertical" style="bottom: 30%; right: 18%; animation-duration: 9s; animation-delay: 7s;"><i class="fas fa-envelope"></i></div>
+    <div class="floating-social avito text-lg animate-float-diagonal" style="top: 10%; right: 22%; animation-duration: 12s; animation-delay: 8s;"><i class="fas fa-store"></i></div>
+    <div class="floating-social hh text-xl animate-float-horizontal" style="bottom: 10%; left: 30%; animation-duration: 11s; animation-delay: 9s;"><i class="fas fa-briefcase"></i></div>
+    <div class="floating-social cian text-lg animate-float-vertical" style="top: 30%; right: 25%; animation-duration: 10s; animation-delay: 10s;"><i class="fas fa-home"></i></div>
+    <div class="floating-social tiktok text-xl animate-float-diagonal" style="bottom: 35%; left: 35%; animation-duration: 13s; animation-delay: 11s;"><i class="fab fa-tiktok"></i></div>
+    
+    <div class="floating-social vk text-lg animate-float-horizontal" style="top: 45%; left: 15%; animation-duration: 9s; animation-delay: 12s;"><i class="fab fa-vk"></i></div>
+    <div class="floating-social ok text-xl animate-float-vertical" style="top: 55%; right: 28%; animation-duration: 11s; animation-delay: 13s;"><i class="fab fa-odnoklassniki"></i></div>
+    <div class="floating-social telegram text-lg animate-float-diagonal" style="bottom: 40%; left: 40%; animation-duration: 10s; animation-delay: 14s;"><i class="fab fa-telegram"></i></div>
+    <div class="floating-social yandex text-xl animate-float-horizontal" style="bottom: 35%; right: 32%; animation-duration: 12s; animation-delay: 15s;"><i class="fab fa-yandex"></i></div>
     
     <div class="fixed top-15 right-5 decorative-star gold text-2xl animate-pulse" style="animation-delay: 1s"><i class="fas fa-star"></i></div>
     <div class="fixed top-30 left-15 decorative-star silver text-xl animate-pulse" style="animation-delay: 2s"><i class="fas fa-star"></i></div>
@@ -181,10 +189,10 @@
                     <h1 class="text-2xl font-bold">Репутация+</h1>
                 </div>
                 <div class="flex space-x-4 z-10 relative">
-                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-vk animate-wiggle"></i></a>
-                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-odnoklassniki animate-wiggle"></i></a>
-                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-telegram animate-wiggle"></i></a>
-                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-yandex animate-wiggle"></i></a>
+                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-vk animate-smooth-wiggle"></i></a>
+                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-odnoklassniki animate-smooth-wiggle"></i></a>
+                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-telegram animate-smooth-wiggle"></i></a>
+                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-yandex animate-smooth-wiggle"></i></a>
                 </div>
             </div>
             <div class="mt-12 mb-16 text-center relative z-10">
@@ -206,10 +214,10 @@
             
             <!-- Декоративные социальные иконки в шапке -->
             <div class="absolute top-10 left-1/4 opacity-5">
-                <i class="fab fa-vk text-6xl rotate-12 animate-spin"></i>
+                <i class="fab fa-vk text-6xl rotate-12 animate-float-diagonal" style="animation-duration: 25s;"></i>
             </div>
             <div class="absolute bottom-10 right-1/4 opacity-5">
-                <i class="fab fa-odnoklassniki text-5xl -rotate-12 animate-spin" style="animation-duration: 25s;"></i>
+                <i class="fab fa-odnoklassniki text-5xl -rotate-12 animate-float-diagonal" style="animation-duration: 28s;"></i>
             </div>
         </div>
     </header>
@@ -509,17 +517,17 @@
                 
                 <!-- Декоративные российские социальные иконки -->
                 <div class="flex justify-center space-x-4 mt-4">
-                    <div class="text-blue-600 text-2xl animate-float"><i class="fab fa-vk"></i></div>
-                    <div class="text-orange-500 text-2xl animate-float" style="animation-delay: 0.5s"><i class="fab fa-odnoklassniki"></i></div>
-                    <div class="text-blue-400 text-2xl animate-float" style="animation-delay: 1s"><i class="fab fa-telegram"></i></div>
-                    <div class="text-yellow-500 text-2xl animate-float" style="animation-delay: 1.5s"><i class="fab fa-yandex"></i></div>
-                    <div class="text-red-600 text-2xl animate-float" style="animation-delay: 2s"><i class="fas fa-play-circle"></i></div>
-                    <div class="text-green-600 text-2xl animate-float" style="animation-delay: 2.5s"><i class="fas fa-map-marked-alt"></i></div>
-                    <div class="text-red-500 text-2xl animate-float" style="animation-delay: 3s"><i class="fas fa-envelope"></i></div>
-                    <div class="text-orange-500 text-2xl animate-float" style="animation-delay: 3.5s"><i class="fas fa-store"></i></div>
-                    <div class="text-blue-700 text-2xl animate-float" style="animation-delay: 4s"><i class="fas fa-briefcase"></i></div>
-                    <div class="text-blue-500 text-2xl animate-float" style="animation-delay: 4.5s"><i class="fas fa-home"></i></div>
-                    <div class="text-black text-2xl animate-float" style="animation-delay: 5s"><i class="fab fa-tiktok"></i></div>
+                    <div class="text-blue-600 text-2xl animate-float-vertical"><i class="fab fa-vk"></i></div>
+                    <div class="text-orange-500 text-2xl animate-float-vertical" style="animation-delay: 0.5s"><i class="fab fa-odnoklassniki"></i></div>
+                    <div class="text-blue-400 text-2xl animate-float-vertical" style="animation-delay: 1s"><i class="fab fa-telegram"></i></div>
+                    <div class="text-yellow-500 text-2xl animate-float-vertical" style="animation-delay: 1.5s"><i class="fab fa-yandex"></i></div>
+                    <div class="text-red-600 text-2xl animate-float-vertical" style="animation-delay: 2s"><i class="fas fa-play-circle"></i></div>
+                    <div class="text-green-600 text-2xl animate-float-vertical" style="animation-delay: 2.5s"><i class="fas fa-map-marked-alt"></i></div>
+                    <div class="text-red-500 text-2xl animate-float-vertical" style="animation-delay: 3s"><i class="fas fa-envelope"></i></div>
+                    <div class="text-orange-500 text-2xl animate-float-vertical" style="animation-delay: 3.5s"><i class="fas fa-store"></i></div>
+                    <div class="text-blue-700 text-2xl animate-float-vertical" style="animation-delay: 4s"><i class="fas fa-briefcase"></i></div>
+                    <div class="text-blue-500 text-2xl animate-float-vertical" style="animation-delay: 4.5s"><i class="fas fa-home"></i></div>
+                    <div class="text-black text-2xl animate-float-vertical" style="animation-delay: 5s"><i class="fab fa-tiktok"></i></div>
                 </div>
             </div>
             <div class="mt-10 max-w-4xl mx-auto bg-white p-6 rounded-lg border border-purple-200">
@@ -662,19 +670,19 @@
                 
                 <!-- Декоративные российские социальные иконки -->
                 <div class="absolute bottom-4 left-1/4 opacity-20">
-                    <i class="fab fa-vk text-3xl animate-spin" style="animation-duration: 20s;"></i>
+                    <i class="fab fa-vk text-3xl animate-float-diagonal" style="animation-duration: 20s;"></i>
                 </div>
                 <div class="absolute bottom-4 right-1/4 opacity-20">
-                    <i class="fab fa-odnoklassniki text-2xl animate-spin" style="animation-duration: 25s;"></i>
+                    <i class="fab fa-odnoklassniki text-2xl animate-float-diagonal" style="animation-duration: 25s;"></i>
                 </div>
                 <div class="absolute top-1/4 left-5 opacity-20">
-                    <i class="fab fa-telegram text-2xl animate-spin" style="animation-duration: 30s;"></i>
+                    <i class="fab fa-telegram text-2xl animate-float-diagonal" style="animation-duration: 30s;"></i>
                 </div>
                 <div class="absolute top-1/4 right-5 opacity-20">
-                    <i class="fab fa-yandex text-2xl animate-spin" style="animation-duration: 35s;"></i>
+                    <i class="fab fa-yandex text-2xl animate-float-diagonal" style="animation-duration: 35s;"></i>
                 </div>
                 <div class="absolute bottom-1/4 left-1/3 opacity-20">
-                    <i class="fab fa-tiktok text-2xl animate-spin" style="animation-duration: 40s;"></i>
+                    <i class="fab fa-tiktok text-2xl animate-float-diagonal" style="animation-duration: 40s;"></i>
                 </div>
             </div>
         </div>
@@ -684,11 +692,11 @@
     <footer class="bg-gray-900 text-white py-6 relative overflow-hidden">
         <div class="container mx-auto px-4 text-center">
             <div class="flex justify-center space-x-6 mb-4">
-                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-vk animate-wiggle"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-odnoklassniki animate-wiggle"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-telegram animate-wiggle"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-yandex animate-wiggle"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-tiktok animate-wiggle"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-vk animate-smooth-wiggle"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-odnoklassniki animate-smooth-wiggle"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-telegram animate-smooth-wiggle"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-yandex animate-smooth-wiggle"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-tiktok animate-smooth-wiggle"></i></a>
             </div>
             <p class="text-gray-400 text-sm">© 2023 Репутация+ | Комплексное управление репутацией бизнеса</p>
             
@@ -703,19 +711,19 @@
             
             <!-- Декоративные российские социальные иконки в футере -->
             <div class="absolute top-2 left-10 opacity-5">
-                <i class="fab fa-vk text-2xl animate-spin" style="animation-duration: 15s;"></i>
+                <i class="fab fa-vk text-2xl animate-float-diagonal" style="animation-duration: 15s;"></i>
             </div>
             <div class="absolute top-2 right-10 opacity-5">
-                <i class="fab fa-odnoklassniki text-xl animate-spin" style="animation-duration: 20s;"></i>
+                <i class="fab fa-odnoklassniki text-xl animate-float-diagonal" style="animation-duration: 20s;"></i>
             </div>
             <div class="absolute top-1/2 left-5 opacity-5">
-                <i class="fab fa-telegram text-xl animate-spin" style="animation-duration: 25s;"></i>
+                <i class="fab fa-telegram text-xl animate-float-diagonal" style="animation-duration: 25s;"></i>
             </div>
             <div class="absolute top-1/2 right-5 opacity-5">
-                <i class="fab fa-yandex text-xl animate-spin" style="animation-duration: 30s;"></i>
+                <i class="fab fa-yandex text-xl animate-float-diagonal" style="animation-duration: 30s;"></i>
             </div>
             <div class="absolute bottom-2 left-1/3 opacity-5">
-                <i class="fab fa-tiktok text-xl animate-spin" style="animation-duration: 35s;"></i>
+                <i class="fab fa-tiktok text-xl animate-float-diagonal" style="animation-duration: 35s;"></i>
             </div>
         </div>
     </footer>
@@ -753,13 +761,8 @@
         
         document.querySelectorAll('section, .feature-card, .benefit-item, .module-card').forEach(el => observer.observe(el));
         
-        // Добавляем анимацию для декоративных иконок
-        document.querySelectorAll('.decorative-icon').forEach((icon, index) => {
-            icon.style.animationDelay = `${index * 1.5}s`;
-        });
-        
-        // Добавляем случайные позиции для декоративных иконок
-        document.querySelectorAll('.decorative-icon').forEach(icon => {
+        // Добавляем случайные позиции для плавающих иконок
+        document.querySelectorAll('.floating-social').forEach(icon => {
             const top = Math.random() * 80;
             const left = Math.random() * 80;
             icon.style.top = `${top}%`;
