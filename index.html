@@ -10,94 +10,86 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
         body { font-family: 'Montserrat', sans-serif; }
         .gradient-bg { background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%); }
-        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
         @keyframes float-horizontal {
             0% { transform: translateX(0); }
             50% { transform: translateX(20px); }
             100% { transform: translateX(0); }
         }
-        
         @keyframes float-vertical {
             0% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
             100% { transform: translateY(0); }
         }
-        
         @keyframes float-diagonal {
             0% { transform: translate(0, 0); }
             50% { transform: translate(15px, -15px); }
             100% { transform: translate(0, 0); }
         }
-        
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.7; }
             50% { transform: scale(1.05); opacity: 1; }
             100% { transform: scale(1); opacity: 0.7; }
         }
-        
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
         }
-        
-        @keyframes smooth-wiggle {
+        @keyframes lively-wiggle {
             0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(1.5deg); }
-            75% { transform: rotate(-1.5deg); }
+            20% { transform: rotate(4deg); }
+            40% { transform: rotate(-4deg); }
+            60% { transform: rotate(4deg); }
+            80% { transform: rotate(-4deg); }
         }
-        
         .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
-        .animate-float-horizontal { animation: float-horizontal 8s ease-in-out infinite; }
-        .animate-float-vertical { animation: float-vertical 10s ease-in-out infinite; }
-        .animate-float-diagonal { animation: float-diagonal 12s ease-in-out infinite; }
-        .animate-pulse { animation: pulse 4s ease-in-out infinite; }
-        .animate-bounce { animation: bounce 3s ease-in-out infinite; }
-        .animate-smooth-wiggle { animation: smooth-wiggle 3s ease-in-out infinite; }
-        
-        .social-icon { transition: all 0.3s; }
-        .social-icon:hover { transform: scale(1.2); }
-        
+        .animate-float-horizontal { animation: float-horizontal 6s ease-in-out infinite; }
+        .animate-float-vertical { animation: float-vertical 8s ease-in-out infinite; }
+        .animate-float-diagonal { animation: float-diagonal 10s ease-in-out infinite; }
+        .animate-pulse { animation: pulse 3.5s ease-in-out infinite; }
+        .animate-bounce { animation: bounce 2.5s ease-in-out infinite; }
+        .animate-lively-wiggle { animation: lively-wiggle 1.2s ease-in-out infinite; }
+        .social-icon { 
+            transition: all 0.2s; 
+            animation: lively-wiggle 1.2s ease-in-out infinite;
+        }
+        .social-icon:hover { 
+            transform: scale(1.3); 
+            animation: lively-wiggle 0.8s ease-in-out infinite;
+        }
         .feature-card { 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform: translateY(0);
             position: relative;
             overflow: hidden;
         }
-        
         .feature-card:hover { 
             transform: translateY(-10px); 
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
-        
         .benefit-item { 
             transition: all 0.4s; 
             position: relative;
             overflow: hidden;
         }
-        
         .benefit-item:hover { 
             transform: scale(1.03); 
             background-color: #f3e8ff; 
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
         }
-        
         .module-card {
             transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
             transform: translateY(0);
             position: relative;
             overflow: hidden;
         }
-        
         .module-card:hover {
             transform: translateY(-12px);
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 15px -3px rgba(0,0,0,0.05);
         }
-        
         .floating-social {
             position: fixed;
             opacity: 0.08;
@@ -105,7 +97,6 @@
             pointer-events: none;
             filter: blur(1px);
         }
-        
         .floating-social.vk { color: #4c75a3; }
         .floating-social.ok { color: #f78220; }
         .floating-social.telegram { color: #0088cc; }
@@ -118,7 +109,6 @@
         .floating-social.hh { color: #0077b5; }
         .floating-social.cian { color: #4c75a3; }
         .floating-social.tiktok { color: #69C9D0; }
-        
         .decorative-star {
             position: absolute;
             opacity: 0.15;
@@ -126,30 +116,25 @@
             pointer-events: none;
             animation: pulse 4s ease-in-out infinite;
         }
-        
         .decorative-star.gold { color: #FFD700; animation-duration: 5s; }
         .decorative-star.silver { color: #C0C0C0; animation-duration: 6s; }
         .decorative-star.bronze { color: #CD7F32; animation-duration: 7s; }
-        
         .floating-star {
             animation: bounce 4s ease-in-out infinite;
             opacity: 0.2;
         }
-        
         .stagger-animation {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.5s, transform 0.5s;
         }
-        
         .stagger-animation.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
         .emoji-animation {
             display: inline-block;
-            animation: smooth-wiggle 2.5s ease-in-out infinite;
+            animation: lively-wiggle 2s ease-in-out infinite;
         }
     </style>
 </head>
@@ -167,17 +152,14 @@
     <div class="floating-social hh text-xl animate-float-horizontal" style="bottom: 10%; left: 30%; animation-duration: 11s; animation-delay: 9s;"><i class="fas fa-briefcase"></i></div>
     <div class="floating-social cian text-lg animate-float-vertical" style="top: 30%; right: 25%; animation-duration: 10s; animation-delay: 10s;"><i class="fas fa-home"></i></div>
     <div class="floating-social tiktok text-xl animate-float-diagonal" style="bottom: 35%; left: 35%; animation-duration: 13s; animation-delay: 11s;"><i class="fab fa-tiktok"></i></div>
-    
     <div class="floating-social vk text-lg animate-float-horizontal" style="top: 45%; left: 15%; animation-duration: 9s; animation-delay: 12s;"><i class="fab fa-vk"></i></div>
     <div class="floating-social ok text-xl animate-float-vertical" style="top: 55%; right: 28%; animation-duration: 11s; animation-delay: 13s;"><i class="fab fa-odnoklassniki"></i></div>
     <div class="floating-social telegram text-lg animate-float-diagonal" style="bottom: 40%; left: 40%; animation-duration: 10s; animation-delay: 14s;"><i class="fab fa-telegram"></i></div>
     <div class="floating-social yandex text-xl animate-float-horizontal" style="bottom: 35%; right: 32%; animation-duration: 12s; animation-delay: 15s;"><i class="fab fa-yandex"></i></div>
-    
     <div class="fixed top-15 right-5 decorative-star gold text-2xl animate-pulse" style="animation-delay: 1s"><i class="fas fa-star"></i></div>
     <div class="fixed top-30 left-15 decorative-star silver text-xl animate-pulse" style="animation-delay: 2s"><i class="fas fa-star"></i></div>
     <div class="fixed bottom-25 right-10 decorative-star bronze text-2xl animate-pulse" style="animation-delay: 3s"><i class="fas fa-star"></i></div>
     <div class="fixed bottom-15 left-5 decorative-star gold text-xl animate-pulse" style="animation-delay: 4s"><i class="fas fa-star"></i></div>
-    
     <!-- Шапка -->
     <header class="gradient-bg text-white relative overflow-hidden">
         <div class="container mx-auto px-4 py-6">
@@ -188,11 +170,11 @@
                     </div>
                     <h1 class="text-2xl font-bold">Репутация+</h1>
                 </div>
-                <div class="flex space-x-4 z-10 relative">
-                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-vk animate-smooth-wiggle"></i></a>
-                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-odnoklassniki animate-smooth-wiggle"></i></a>
-                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-telegram animate-smooth-wiggle"></i></a>
-                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-yandex animate-smooth-wiggle"></i></a>
+                <div class="flex space-x-3 z-10 relative">
+                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-yandex animate-lively-wiggle"></i></a>
+                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fas fa-map-marked-alt animate-lively-wiggle"></i></a>
+                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-google animate-lively-wiggle"></i></a>
+                    <a href="#" class="text-white hover:text-purple-200 social-icon"><i class="fab fa-telegram animate-lively-wiggle"></i></a>
                 </div>
             </div>
             <div class="mt-12 mb-16 text-center relative z-10">
@@ -201,7 +183,6 @@
                 <a href="#contact" class="bg-white text-purple-800 font-bold py-2 px-6 rounded-full hover:bg-purple-100 transition inline-block animate-fadeIn hover:animate-bounce" style="animation-delay:0.4s">
                     ✅ Начать защиту
                 </a>
-                
                 <!-- Декоративные звезды над кнопкой -->
                 <div class="flex justify-center mt-4 space-x-1">
                     <div class="floating-star text-yellow-400 text-xl animate-bounce"><i class="fas fa-star"></i></div>
@@ -211,17 +192,15 @@
                     <div class="floating-star text-yellow-400 text-xl animate-bounce" style="animation-delay: 2s"><i class="fas fa-star"></i></div>
                 </div>
             </div>
-            
             <!-- Декоративные социальные иконки в шапке -->
             <div class="absolute top-10 left-1/4 opacity-5">
-                <i class="fab fa-vk text-6xl rotate-12 animate-float-diagonal" style="animation-duration: 25s;"></i>
+                <i class="fab fa-yandex text-6xl rotate-12 animate-float-diagonal" style="animation-duration: 25s;"></i>
             </div>
             <div class="absolute bottom-10 right-1/4 opacity-5">
-                <i class="fab fa-odnoklassniki text-5xl -rotate-12 animate-float-diagonal" style="animation-duration: 28s;"></i>
+                <i class="fas fa-map-marked-alt text-5xl -rotate-12 animate-float-diagonal" style="animation-duration: 28s;"></i>
             </div>
         </div>
     </header>
-    
     <!-- Ключевые преимущества -->
     <section class="py-12 bg-white relative overflow-hidden">
         <div class="container mx-auto px-4">
@@ -243,13 +222,11 @@
                     <p class="text-gray-600">Помимо работы с отзывами, подключаем PR и SMM-менеджеров для анализа и улучшения ваших соцсетей и сайтов.</p>
                 </div>
             </div>
-            
             <!-- Декоративные звезды -->
             <div class="absolute top-1/4 right-10 decorative-star gold text-3xl animate-pulse" style="animation-delay: 0s"><i class="fas fa-star"></i></div>
             <div class="absolute bottom-1/4 left-10 decorative-star silver text-2xl animate-pulse" style="animation-delay: 1s"><i class="fas fa-star"></i></div>
         </div>
     </section>
-    
     <!-- Надежное решение -->
     <section class="py-12 bg-gray-50 relative overflow-hidden">
         <div class="container mx-auto px-4">
@@ -364,13 +341,11 @@
                     </div>
                 </div>
             </div>
-            
             <!-- Декоративные звезды -->
             <div class="absolute top-10 left-5 decorative-star gold text-2xl animate-pulse" style="animation-delay: 0.5s"><i class="fas fa-star"></i></div>
             <div class="absolute bottom-10 right-5 decorative-star gold text-2xl animate-pulse" style="animation-delay: 1.5s"><i class="fas fa-star"></i></div>
         </div>
     </section>
-    
     <!-- Репутация в надежных руках -->
     <section class="py-12 bg-white relative overflow-hidden">
         <div class="container mx-auto px-4">
@@ -382,10 +357,8 @@
                 <div class="absolute bottom-5 right-5 opacity-10">
                     <i class="fab fa-odnoklassniki text-2xl"></i>
                 </div>
-                
                 <h2 class="text-2xl font-bold text-center mb-6 stagger-animation">🤝 Репутация вашего бизнеса в надёжных руках</h2>
                 <p class="text-lg text-center mb-6 stagger-animation" style="animation-delay: 0.1s">🧩 Мы берём на себя управление вашей репутацией, чтобы вы могли сосредоточиться на развитии бизнеса</p>
-                
                 <!-- Декоративные звезды -->
                 <div class="flex justify-center mb-6">
                     <div class="text-yellow-400 text-2xl mx-1 animate-pulse"><i class="fas fa-star"></i></div>
@@ -394,7 +367,6 @@
                     <div class="text-yellow-400 text-2xl mx-1 animate-pulse" style="animation-delay: 0.6s"><i class="fas fa-star"></i></div>
                     <div class="text-yellow-400 text-2xl mx-1 animate-pulse" style="animation-delay: 0.8s"><i class="fas fa-star"></i></div>
                 </div>
-                
                 <div class="grid md:grid-cols-2 gap-6 mt-8">
                     <div class="flex items-start stagger-animation" style="animation-delay: 0.2s">
                         <div class="text-xl mr-4"><span class="emoji-animation">🔍</span></div>
@@ -442,7 +414,6 @@
             </div>
         </div>
     </section>
-    
     <!-- Почему репутация важна -->
     <section class="py-12 bg-gray-50 relative overflow-hidden">
         <div class="container mx-auto px-4">
@@ -455,7 +426,6 @@
                 <div class="absolute -bottom-5 -left-5 opacity-10">
                     <i class="fas fa-star text-4xl"></i>
                 </div>
-                
                 <p class="mb-4 stagger-animation">В современном мире более <strong>90% людей</strong> читают отзывы прежде чем воспользоваться услугами какого-либо бизнеса или бренда.</p>
                 <p class="mb-4 stagger-animation" style="animation-delay: 0.1s">Статистические данные действительно это подтверждают:</p>
                 <ul class="list-disc pl-5 mb-4 space-y-2">
@@ -471,7 +441,6 @@
                 </ul>
                 <p class="text-xl font-bold text-center mt-6 stagger-animation" style="animation-delay: 0.9s">Защита имиджа + Рост доверия = <span class="text-purple-600">Больше клиентов</span></p>
                 <p class="text-center mt-2 stagger-animation" style="animation-delay: 1.0s">Логичный вывод и гарантия надёжности вашего выбора</p>
-                
                 <!-- Декоративные звезды -->
                 <div class="flex justify-center mt-4">
                     <div class="text-yellow-400 text-xl mx-1 animate-bounce" style="animation-delay: 0s"><i class="fas fa-star"></i></div>
@@ -483,7 +452,6 @@
             </div>
         </div>
     </section>
-    
     <!-- Как работать с нами -->
     <section class="py-12 bg-white relative overflow-hidden">
         <div class="container mx-auto px-4">
@@ -514,13 +482,12 @@
                 <h3 class="text-xl font-bold mb-4 text-center stagger-animation">🧑‍💻 Привлечение специалистов</h3>
                 <p class="mb-4 text-center stagger-animation" style="animation-delay: 0.1s">Мы подключаем PR и SMM-менеджеров для анализа и улучшения ваших соцсетей и сайта.</p>
                 <p class="text-center font-bold stagger-animation" style="animation-delay: 0.2s">За это не нужно платить отдельно — все включено в стоимость модуля!</p>
-                
                 <!-- Декоративные российские социальные иконки -->
                 <div class="flex justify-center space-x-4 mt-4">
-                    <div class="text-blue-600 text-2xl animate-float-vertical"><i class="fab fa-vk"></i></div>
-                    <div class="text-orange-500 text-2xl animate-float-vertical" style="animation-delay: 0.5s"><i class="fab fa-odnoklassniki"></i></div>
-                    <div class="text-blue-400 text-2xl animate-float-vertical" style="animation-delay: 1s"><i class="fab fa-telegram"></i></div>
-                    <div class="text-yellow-500 text-2xl animate-float-vertical" style="animation-delay: 1.5s"><i class="fab fa-yandex"></i></div>
+                    <div class="text-blue-600 text-2xl animate-float-vertical"><i class="fab fa-yandex"></i></div>
+                    <div class="text-green-600 text-2xl animate-float-vertical" style="animation-delay: 0.5s"><i class="fas fa-map-marked-alt"></i></div>
+                    <div class="text-blue-400 text-2xl animate-float-vertical" style="animation-delay: 1s"><i class="fab fa-google"></i></div>
+                    <div class="text-blue-400 text-2xl animate-float-vertical" style="animation-delay: 1.5s"><i class="fab fa-telegram"></i></div>
                     <div class="text-red-600 text-2xl animate-float-vertical" style="animation-delay: 2s"><i class="fas fa-play-circle"></i></div>
                     <div class="text-green-600 text-2xl animate-float-vertical" style="animation-delay: 2.5s"><i class="fas fa-map-marked-alt"></i></div>
                     <div class="text-red-500 text-2xl animate-float-vertical" style="animation-delay: 3s"><i class="fas fa-envelope"></i></div>
@@ -560,7 +527,6 @@
             </div>
         </div>
     </section>
-    
     <!-- Модули -->
     <section class="py-12 bg-gray-50 relative overflow-hidden">
         <div class="container mx-auto px-4">
@@ -626,7 +592,6 @@
                     </button>
                 </div>
             </div>
-            
             <!-- Декоративные звезды -->
             <div class="flex justify-center mt-6">
                 <div class="text-yellow-400 text-3xl mx-2 animate-bounce" style="animation-delay: 0s"><i class="fas fa-star"></i></div>
@@ -637,7 +602,6 @@
             </div>
         </div>
     </section>
-    
     <!-- Обратная связь -->
     <section class="py-12 gradient-bg text-white relative overflow-hidden" id="contact">
         <div class="container mx-auto px-4">
@@ -646,7 +610,6 @@
                 <!-- Декоративные звезды -->
                 <div class="absolute -top-5 -right-5 text-yellow-400 text-4xl animate-pulse"><i class="fas fa-star"></i></div>
                 <div class="absolute -bottom-5 -left-5 text-yellow-400 text-3xl animate-pulse" style="animation-delay: 0.5s"><i class="fas fa-star"></i></div>
-                
                 <div class="p-6 text-gray-800">
                     <form id="contactForm" action="https://formsubmit.co/zulfat-ilyasov@mail.ru" method="POST">
                         <input type="hidden" name="_captcha" value="false">
@@ -667,19 +630,18 @@
                         </button>
                     </form>
                 </div>
-                
                 <!-- Декоративные российские социальные иконки -->
                 <div class="absolute bottom-4 left-1/4 opacity-20">
-                    <i class="fab fa-vk text-3xl animate-float-diagonal" style="animation-duration: 20s;"></i>
+                    <i class="fab fa-yandex text-3xl animate-float-diagonal" style="animation-duration: 20s;"></i>
                 </div>
                 <div class="absolute bottom-4 right-1/4 opacity-20">
-                    <i class="fab fa-odnoklassniki text-2xl animate-float-diagonal" style="animation-duration: 25s;"></i>
+                    <i class="fas fa-map-marked-alt text-2xl animate-float-diagonal" style="animation-duration: 25s;"></i>
                 </div>
                 <div class="absolute top-1/4 left-5 opacity-20">
-                    <i class="fab fa-telegram text-2xl animate-float-diagonal" style="animation-duration: 30s;"></i>
+                    <i class="fab fa-google text-2xl animate-float-diagonal" style="animation-duration: 30s;"></i>
                 </div>
                 <div class="absolute top-1/4 right-5 opacity-20">
-                    <i class="fab fa-yandex text-2xl animate-float-diagonal" style="animation-duration: 35s;"></i>
+                    <i class="fab fa-telegram text-2xl animate-float-diagonal" style="animation-duration: 35s;"></i>
                 </div>
                 <div class="absolute bottom-1/4 left-1/3 opacity-20">
                     <i class="fab fa-tiktok text-2xl animate-float-diagonal" style="animation-duration: 40s;"></i>
@@ -687,19 +649,17 @@
             </div>
         </div>
     </section>
-    
     <!-- Футер -->
     <footer class="bg-gray-900 text-white py-6 relative overflow-hidden">
         <div class="container mx-auto px-4 text-center">
             <div class="flex justify-center space-x-6 mb-4">
-                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-vk animate-smooth-wiggle"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-odnoklassniki animate-smooth-wiggle"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-telegram animate-smooth-wiggle"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-yandex animate-smooth-wiggle"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-tiktok animate-smooth-wiggle"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-yandex animate-lively-wiggle"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fas fa-map-marked-alt animate-lively-wiggle"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-google animate-lively-wiggle"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-telegram animate-lively-wiggle"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white social-icon"><i class="fab fa-tiktok animate-lively-wiggle"></i></a>
             </div>
             <p class="text-gray-400 text-sm">© 2023 Репутация+ | Комплексное управление репутацией бизнеса</p>
-            
             <!-- Декоративные звезды в футере -->
             <div class="flex justify-center mt-3">
                 <div class="text-yellow-400 text-xl mx-1 animate-pulse"><i class="fas fa-star"></i></div>
@@ -708,26 +668,24 @@
                 <div class="text-yellow-400 text-xl mx-1 animate-pulse" style="animation-delay: 0.6s"><i class="fas fa-star"></i></div>
                 <div class="text-yellow-400 text-xl mx-1 animate-pulse" style="animation-delay: 0.8s"><i class="fas fa-star"></i></div>
             </div>
-            
             <!-- Декоративные российские социальные иконки в футере -->
             <div class="absolute top-2 left-10 opacity-5">
-                <i class="fab fa-vk text-2xl animate-float-diagonal" style="animation-duration: 15s;"></i>
+                <i class="fab fa-yandex text-2xl animate-float-diagonal" style="animation-duration: 15s;"></i>
             </div>
             <div class="absolute top-2 right-10 opacity-5">
-                <i class="fab fa-odnoklassniki text-xl animate-float-diagonal" style="animation-duration: 20s;"></i>
+                <i class="fas fa-map-marked-alt text-xl animate-float-diagonal" style="animation-duration: 20s;"></i>
             </div>
             <div class="absolute top-1/2 left-5 opacity-5">
-                <i class="fab fa-telegram text-xl animate-float-diagonal" style="animation-duration: 25s;"></i>
+                <i class="fab fa-google text-xl animate-float-diagonal" style="animation-duration: 25s;"></i>
             </div>
             <div class="absolute top-1/2 right-5 opacity-5">
-                <i class="fab fa-yandex text-xl animate-float-diagonal" style="animation-duration: 30s;"></i>
+                <i class="fab fa-telegram text-xl animate-float-diagonal" style="animation-duration: 30s;"></i>
             </div>
             <div class="absolute bottom-2 left-1/3 opacity-5">
                 <i class="fab fa-tiktok text-xl animate-float-diagonal" style="animation-duration: 35s;"></i>
             </div>
         </div>
     </footer>
-    
     <script>
         // Форма отправки на zulfat-ilyasov@mail.ru
         document.getElementById('contactForm').addEventListener('submit', function(e) {
@@ -742,7 +700,6 @@
             })
             .catch(() => alert('⚠️ Ошибка отправки. Пожалуйста, попробуйте позже.'));
         });
-        
         // Анимация при скролле
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -758,9 +715,7 @@
                 }
             });
         }, { threshold: 0.1 });
-        
         document.querySelectorAll('section, .feature-card, .benefit-item, .module-card').forEach(el => observer.observe(el));
-        
         // Добавляем случайные позиции для плавающих иконок
         document.querySelectorAll('.floating-social').forEach(icon => {
             const top = Math.random() * 80;
@@ -771,4 +726,3 @@
     </script>
 </body>
 </html>
-
