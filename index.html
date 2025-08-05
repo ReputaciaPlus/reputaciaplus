@@ -616,10 +616,10 @@
                 <a href="https://wa.me/79603706203" target="_blank" class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg font-medium transition w-full stagger-animation" style="animation-delay: 0.3s;">
                     <i class="fab fa-whatsapp mr-3"></i> Написать в WhatsApp
                 </a>
-                <!-- Кнопка Email -->
-                <a href="mailto:reputaciaplus@internet.ru" target="_blank" class="flex items-center justify-center bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-lg font-medium transition w-full stagger-animation" style="animation-delay: 0.4s;">
+                <!-- Кнопка Email с модальным окном -->
+                <button onclick="openEmailModal()" class="flex items-center justify-center bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-lg font-medium transition w-full stagger-animation" style="animation-delay: 0.4s;">
                     <i class="fas fa-envelope mr-3"></i> Написать по электронной почте
-                </a>
+                </button>
             </div>
             <!-- Декоративные звезды -->
             <div class="flex justify-center mt-6">
@@ -628,6 +628,19 @@
                 <div class="text-yellow-400 text-3xl mx-2 animate-pulse" style="animation-delay: 0.4s"><i class="fas fa-star"></i></div>
                 <div class="text-yellow-400 text-3xl mx-2 animate-pulse" style="animation-delay: 0.6s"><i class="fas fa-star"></i></div>
                 <div class="text-yellow-400 text-3xl mx-2 animate-pulse" style="animation-delay: 0.8s"><i class="fas fa-star"></i></div>
+            </div>
+        </div>
+
+        <!-- Модальное окно для почты -->
+        <div id="emailModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 text-center">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">📧 Напишите нам на почту</h3>
+                <p class="text-gray-600 mb-3">Мы будем ждать вашего сообщения на адрес:</p>
+                <p class="font-mono text-lg text-purple-600 font-bold">reputaciaplus@internet.ru</p>
+                <p class="text-sm text-gray-500 mt-4">Откройте свою почту и отправьте нам письмо с интересующим вас вопросом.</p>
+                <button onclick="closeEmailModal()" class="mt-6 bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition">
+                    Понятно
+                </button>
             </div>
         </div>
     </section>
@@ -669,12 +682,20 @@
         </div>
     </footer>
     <script>
+        // Функции для модального окна
+        function openEmailModal() {
+            document.getElementById('emailModal').classList.remove('hidden');
+        }
+
+        function closeEmailModal() {
+            document.getElementById('emailModal').classList.add('hidden');
+        }
+
         // Анимация при скролле
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate-fadeIn');
-                    // Add staggered animations for child elements
                     const children = entry.target.querySelectorAll('.stagger-animation');
                     children.forEach((child, index) => {
                         setTimeout(() => {
@@ -684,8 +705,10 @@
                 }
             });
         }, { threshold: 0.1 });
+
         document.querySelectorAll('section, .feature-card, .benefit-item, .module-card').forEach(el => observer.observe(el));
-        // Добавляем случайные позиции для плавающих иконок
+
+        // Случайные позиции для плавающих иконок
         document.querySelectorAll('.floating-social').forEach(icon => {
             const top = Math.random() * 80;
             const left = Math.random() * 80;
