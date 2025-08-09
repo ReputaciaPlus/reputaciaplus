@@ -59,6 +59,23 @@
             0% { background-position: 0% 50%; }
             100% { background-position: 100% 50%; }
         }
+        @keyframes floatUp {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.04); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.06); }
+            70% { transform: scale(1); }
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 0 0 rgba(110, 72, 170, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(110, 72, 170, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(110, 72, 170, 0); }
+        }
         .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
         .animate-float-horizontal { animation: float-horizontal 6s ease-in-out infinite; }
         .animate-float-vertical { animation: float-vertical 8s ease-in-out infinite; }
@@ -66,6 +83,9 @@
         .animate-pulse { animation: pulse 3.5s ease-in-out infinite; }
         .animate-bounce { animation: bounce 2.5s ease-in-out infinite; }
         .animate-lively-wiggle { animation: lively-wiggle 1.2s ease-in-out infinite; }
+        .animate-floatUp { animation: floatUp 3s ease-in-out infinite; }
+        .animate-heartbeat { animation: heartbeat 1.5s ease-in-out infinite; }
+        .animate-glow { animation: glow 2s ease-out infinite; }
         .social-icon { 
             transition: all 0.2s; 
             animation: lively-wiggle 1.2s ease-in-out infinite;
@@ -100,10 +120,23 @@
             position: relative;
             overflow: hidden;
             cursor: pointer;
+            z-index: 1;
         }
         .module-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 15px -3px rgba(0,0,0,0.05);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 40px -10px rgba(0,0,0,0.2), 0 15px 20px -5px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        .module-card:hover .module-header {
+            transform: translateY(-5px);
+            transition: all 0.4s ease;
+        }
+        .module-card:hover .price-tag {
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+        .module-card:hover .feature-icon {
+            animation: heartbeat 1.2s ease-in-out infinite;
         }
         .floating-social {
             position: fixed;
@@ -194,6 +227,93 @@
         .module-card:nth-child(4) .module-effects span:nth-child(10) { top: 35%; left: 50%; animation-delay: 2.9s; }
         .modules-container {
             transition: background 1.5s ease;
+        }
+        
+        /* Новые стили для карточек модулей */
+        .module-badge {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            transform: rotate(0deg);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: white;
+            z-index: 20;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+        .module-badge:hover {
+            transform: rotate(0deg) scale(1.1);
+        }
+        .module-header {
+            transition: all 0.3s ease;
+        }
+        .price-tag {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6e48aa;
+            transition: all 0.3s ease;
+        }
+        .feature-item {
+            transition: all 0.3s ease;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.05);
+        }
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+        .module-card:hover .feature-item {
+            transform: translateX(5px);
+        }
+        .feature-icon {
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+        }
+        .module-card:hover .feature-icon {
+            background-color: #e0d5f9;
+        }
+        .module-card.popular {
+            border-top-width: 6px !important;
+        }
+        .module-card.popular:hover {
+            transform: translateY(-18px) scale(1.03);
+        }
+        .module-card.popular .module-badge {
+            background: linear-gradient(to right, #FF512F, #F09819);
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        .module-card.discount .module-badge {
+            background: linear-gradient(to right, #00C9FF, #92FE9D);
+        }
+        .module-card.discount .price-tag {
+            color: #e53e3e;
+        }
+        .module-card.discount .old-price {
+            text-decoration: line-through;
+            color: #718096;
+            font-size: 1.1rem;
+            margin-right: 8px;
+        }
+        .module-card.highlighted {
+            box-shadow: 0 0 0 3px rgba(110, 72, 170, 0.3) !important;
+        }
+        .module-card.highlighted:hover {
+            animation: glow 2s ease-out infinite;
+        }
+        .module-card .cta-button {
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .module-card:hover .cta-button {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 15px -3px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -593,73 +713,141 @@
             <!-- Контейнер с динамическим фоном -->
             <div id="modules-container" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
                 <!-- Базовый -->
-                <div class="module-card bg-white p-6 rounded-lg shadow-md border-t-4 border-purple-500 relative overflow-hidden transition-all duration-500 hover:scale-105"
+                <div class="module-card bg-white p-6 rounded-xl shadow-lg border-t-4 border-purple-500 relative overflow-hidden transition-all duration-500 hover:scale-105 popular"
                      data-color="linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%)"
                      style="animation-delay: 0.1s">
-                    <div class="absolute -top-3 -right-3 text-yellow-400 text-2xl animate-pulse z-20"><i class="fas fa-star"></i></div>
-                    <h3 class="text-lg font-bold mb-3">💼 Базовый <span class="float-right">25 000 ₽/мес</span></h3>
-                    <ul class="text-sm space-y-2 mb-4">
-                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Мониторинг отзывов</li>
-                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Регулярные отчёты</li>
-                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Реакция на негатив</li>
+                    <div class="module-badge bg-gradient-to-r from-purple-600 to-purple-800">ТОП</div>
+                    <div class="module-header">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold">💼 Базовый</h3>
+                            <div class="price-tag">25 000 ₽/мес</div>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">⏱️ Быстрый старт. Для первого теста системы</p>
+                    </div>
+                    <ul class="space-y-3 mb-6">
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-purple-600"><i class="fas fa-check"></i></div>
+                            <span class="text-gray-700">Мониторинг отзывов</span>
+                        </li>
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-purple-600"><i class="fas fa-check"></i></div>
+                            <span class="text-gray-700">Регулярные отчёты</span>
+                        </li>
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-purple-600"><i class="fas fa-check"></i></div>
+                            <span class="text-gray-700">Реакция на негатив</span>
+                        </li>
                     </ul>
-                    <p class="text-xs text-gray-500 mb-4">⏱️ Быстрый старт. Для первого теста системы</p>
-                    <button class="w-full bg-purple-600 text-white py-2 rounded-lg font-medium hover:bg-purple-700 transition">
+                    <button class="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 rounded-lg font-medium hover:from-purple-700 hover:to-purple-800 transition-all duration-300 cta-button">
                         Выгодный модуль
                     </button>
                     <!-- Эмодзи-звёзды при наведении -->
                     <div class="module-effects hidden absolute inset-0 pointer-events-none"></div>
                 </div>
                 <!-- Базовый+ -->
-                <div class="module-card bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500 relative overflow-hidden transition-all duration-500 hover:scale-105"
+                <div class="module-card bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 relative overflow-hidden transition-all duration-500 hover:scale-105"
                      data-color="linear-gradient(135deg, #3498db 0%, #2980b9 100%)"
                      style="animation-delay: 0.2s">
-                    <div class="absolute -top-3 -right-3 text-yellow-400 text-2xl animate-pulse z-20" style="animation-delay: 0.1s"><i class="fas fa-certificate"></i></div>
-                    <h3 class="text-lg font-bold mb-3">📊 Базовый+ <span class="float-right">35 000 ₽/мес</span></h3>
-                    <ul class="text-sm space-y-2 mb-4">
-                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Всё из Базового</li>
-                        <li class="flex items-center"><i class="fas fa-plus text-blue-500 mr-2"></i> Отчёт от PR/SMM</li>
-                        <li class="flex items-center"><i class="fas fa-plus text-blue-500 mr-2"></i> Полная аналитика</li>
+                    <div class="module-badge bg-gradient-to-r from-blue-500 to-blue-700">ПОПУЛЯРНЫЙ</div>
+                    <div class="module-header">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold">📊 Базовый+</h3>
+                            <div class="price-tag">35 000 ₽/мес</div>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">📑 Развитие цифрового образа</p>
+                    </div>
+                    <ul class="space-y-3 mb-6">
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-blue-500"><i class="fas fa-check"></i></div>
+                            <span class="text-gray-700">Всё из Базового</span>
+                        </li>
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-blue-500"><i class="fas fa-plus"></i></div>
+                            <span class="text-gray-700">Отчёт от PR/SMM</span>
+                        </li>
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-blue-500"><i class="fas fa-plus"></i></div>
+                            <span class="text-gray-700">Полная аналитика</span>
+                        </li>
                     </ul>
-                    <p class="text-xs text-gray-500 mb-4">📑 Развитие цифрового образа</p>
-                    <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                    <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-300 cta-button">
                         Надёжный модуль
                     </button>
                     <div class="module-effects hidden absolute inset-0 pointer-events-none"></div>
                 </div>
                 <!-- Развитие -->
-                <div class="module-card bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500 relative overflow-hidden transition-all duration-500 hover:scale-105"
+                <div class="module-card bg-white p-6 rounded-xl shadow-lg border-t-4 border-green-500 relative overflow-hidden transition-all duration-500 hover:scale-105"
                      data-color="linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)"
                      style="animation-delay: 0.3s">
-                    <div class="absolute -top-3 -right-3 text-yellow-400 text-2xl animate-bounce z-20" style="animation-delay: 0.2s"><i class="fas fa-rocket"></i></div>
-                    <h3 class="text-lg font-bold mb-3">🚀 Развитие <span class="float-right">50 000 ₽/мес</span></h3>
-                    <ul class="text-sm space-y-2 mb-4">
-                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Всё из Базового+</li>
-                        <li class="flex items-center"><i class="fas fa-plus text-green-500 mr-2"></i> Поддержка и рекомендации</li>
-                        <li class="flex items-center"><i class="fas fa-chart-line text-green-500 mr-2"></i> Анализ конкурентов</li>
-                        <li class="flex items-center"><i class="fas fa-hashtag text-green-500 mr-2"></i> Оптимизация соцсетей</li>
+                    <div class="module-badge bg-gradient-to-r from-yellow-400 to-yellow-600">ПОПУЛЯРНЫЙ</div>
+                    <div class="module-header">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold">🚀 Развитие</h3>
+                            <div class="price-tag">50 000 ₽/мес</div>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">📈 Для лидеров своей ниши</p>
+                    </div>
+                    <ul class="space-y-3 mb-6">
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-green-500"><i class="fas fa-check"></i></div>
+                            <span class="text-gray-700">Всё из Базового+</span>
+                        </li>
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-green-500"><i class="fas fa-plus"></i></div>
+                            <span class="text-gray-700">Поддержка и рекомендации</span>
+                        </li>
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-green-500"><i class="fas fa-chart-line"></i></div>
+                            <span class="text-gray-700">Анализ конкурентов</span>
+                        </li>
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-green-500"><i class="fas fa-hashtag"></i></div>
+                            <span class="text-gray-700">Оптимизация соцсетей</span>
+                        </li>
                     </ul>
-                    <p class="text-xs text-gray-500 mb-4">📈 Для лидеров своей ниши</p>
-                    <button class="w-full bg-green-600 text-white py-2 rounded-lg font-medium hover:bg-green-700 transition">
+                    <button class="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-lg font-medium hover:from-green-700 hover:to-green-800 transition-all duration-300 cta-button">
                         Популярный модуль
                     </button>
                     <div class="module-effects hidden absolute inset-0 pointer-events-none"></div>
                 </div>
                 <!-- Максимум -->
-                <div class="module-card bg-white p-6 rounded-lg shadow-md border-t-4 border-yellow-500 relative overflow-hidden transition-all duration-500 hover:scale-105"
+                <div class="module-card bg-white p-6 rounded-xl shadow-lg border-t-4 border-yellow-500 relative overflow-hidden transition-all duration-500 hover:scale-105 highlighted discount"
                      data-color="linear-gradient(135deg, #f1c40f 0%, #e67e22 100%)"
                      style="animation-delay: 0.4s">
-                    <div class="absolute -top-3 -right-3 text-yellow-400 text-2xl animate-bounce z-20" style="animation-delay: 0.3s"><i class="fas fa-trophy"></i></div>
-                    <h3 class="text-lg font-bold mb-3">🏆 Максимум <span class="float-right">70 000 ₽/мес</span></h3>
-                    <ul class="text-sm space-y-2 mb-4">
-                        <li class="flex items-center"><i class="fas fa-check text-yellow-600 mr-2"></i> Всё включено</li>
-                        <li class="flex items-center"><i class="fas fa-chart-pie text-yellow-600 mr-2"></i> Глубокая аналитика</li>
-                        <li class="flex items-center"><i class="fas fa-handshake text-yellow-600 mr-2"></i> Сопровождение</li>
-                        <li class="flex items-center"><i class="fas fa-bolt text-yellow-600 mr-2"></i> Приоритетная реакция</li>
-                        <li class="flex items-center"><i class="fas fa-user-tie text-yellow-600 mr-2"></i> Личный менеджер</li>
+                    <div class="module-badge bg-gradient-to-r from-green-400 to-blue-500">СКИДКА 15%</div>
+                    <div class="module-header">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold">🏆 Максимум</h3>
+                            <div class="flex flex-col items-end">
+                                <span class="old-price">82 350 ₽/мес</span>
+                                <div class="price-tag">70 000 ₽/мес</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">👑 Максимальная защита и рост</p>
+                    </div>
+                    <ul class="space-y-3 mb-6">
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-yellow-600"><i class="fas fa-check"></i></div>
+                            <span class="text-gray-700">Всё включено</span>
+                        </li>
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-yellow-600"><i class="fas fa-chart-pie"></i></div>
+                            <span class="text-gray-700">Глубокая аналитика</span>
+                        </li>
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-yellow-600"><i class="fas fa-handshake"></i></div>
+                            <span class="text-gray-700">Сопровождение</span>
+                        </li>
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-yellow-600"><i class="fas fa-bolt"></i></div>
+                            <span class="text-gray-700">Приоритетная реакция</span>
+                        </li>
+                        <li class="feature-item flex items-start">
+                            <div class="feature-icon mr-3 text-yellow-600"><i class="fas fa-user-tie"></i></div>
+                            <span class="text-gray-700">Личный менеджер</span>
+                        </li>
                     </ul>
-                    <p class="text-xs text-gray-500 mb-4">👑 Максимальная защита и рост</p>
-                    <button class="w-full bg-yellow-500 text-white py-2 rounded-lg font-medium hover:bg-yellow-600 transition">
+                    <button class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-3 rounded-lg font-medium hover:from-yellow-600 hover:to-orange-600 transition-all duration-300 cta-button">
                         Максимальный модуль
                     </button>
                     <div class="module-effects hidden absolute inset-0 pointer-events-none"></div>
@@ -757,7 +945,6 @@
             </div>
         </div>
     </footer>
-
     <!-- Модальное окно: Публичная оферта -->
     <div id="offerModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden overflow-y-auto">
         <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-screen overflow-y-auto m-4 p-6">
@@ -766,9 +953,7 @@
                 <button onclick="closeOfferModal()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
             </div>
             <p class="text-sm text-gray-600 mb-6">от 06.08.2025</p>
-
             <p class="mb-4"><strong>Самозанятый Ильясов Зульфат Илдусович</strong>, именуемый в дальнейшем "Исполнитель", публикует настоящий договор-оферту о нижеследующем:</p>
-
             <h4 class="font-bold mt-6 mb-2">1. Общие положения</h4>
             <ol class="list-decimal list-inside space-y-2 ml-4">
                 <li>Настоящий документ является официальным предложением (офертой) для любых физических и юридических лиц (далее — "Клиент") на заключение договора на оказание услуг по мониторингу и управлению репутацией в интернете.</li>
@@ -779,7 +964,6 @@
                 <li>Переписка в мессенджерах (Telegram, VK и др.) признаётся юридически значимой и частью договора.</li>
                 <li>Исполнитель вправе в одностороннем порядке прекратить исполнение обязательств по договору без объяснения причин, уведомив Клиента в любой форме (в том числе односторонним сообщением в мессенджере или электронной почте). Возврат денежных средств производится за неоказанные услуги с учётом того, что 50% от оплаченной суммы является невозвратной компенсацией организационных и подготовительных расходов. Расчёт возврата производится по формуле: (Оплата × 50%) × (Дни до окончания договора / 30).</li>
             </ol>
-
             <h4 class="font-bold mt-6 mb-2">2. Предмет договора</h4>
             <p>Исполнитель оказывает Клиенту следующие услуги:</p>
             <ul class="list-disc list-inside ml-5 space-y-1">
@@ -787,7 +971,6 @@
                 <li>Составление аналитических отчётов;</li>
                 <li>Консультационная поддержка по улучшению онлайн-репутации.</li>
             </ul>
-
             <h4 class="font-bold mt-6 mb-2">3. Стоимость услуг и порядок оплаты</h4>
             <ol class="list-decimal list-inside space-y-2 ml-4">
                 <li>Стоимость услуг указывается на сайте или в личной переписке в мессенджерах или по электронной почте и зависит от выбранного тарифа/модуля (Базовый 25.000 рублей включает в себя мониторинг отзывов, Базовый+ 35.000 рублей помимо мониторинга включает в себя отчёт об оценке SMM/PR, Развитие 50.000 рублей помимо мониторинга и отчёта включает в себя отчёт оценки анализа конкурентов, Максимум 70.000 рублей помимо мониторинга, отчёта об SMM/PR, отчёта об анализе конкурентов, включает в себя приоритетное общение, то есть, в приоритетном порядке по сравнению с другими тарифами).</li>
@@ -799,7 +982,6 @@
                 <li>Оплата услуг означает полное и безоговорочное принятие всех условий настоящей оферты.</li>
                 <li>Клиент соглашается, что часть стоимости услуги (не менее 50%) является невозвратной, поскольку покрывает организационные, подготовительные и аналитические действия, которые оказываются в первые дни после оплаты и не подлежат последующей компенсации. Возврат возможен только за оставшуюся часть услуг, которые не были оказаны на момент отказа Клиента или прекращения оказания услуг со стороны Исполнителя. Размер возврата рассчитывается по формуле: (Оплата × 50%) × (Дни до окончания договора / 30).</li>
             </ol>
-
             <h4 class="font-bold mt-6 mb-2">4. Права и обязанности сторон</h4>
             <p><strong>Исполнитель обязуется:</strong></p>
             <ul class="list-disc list-inside ml-5 space-y-1">
@@ -813,7 +995,6 @@
                 <li>Не препятствовать выполнению услуг;</li>
                 <li>Не разглашать методики и материалы, предоставленные Исполнителем, третьим лицам.</li>
             </ul>
-
             <h4 class="font-bold mt-6 mb-2">5. Ответственность сторон</h4>
             <ol class="list-decimal list-inside space-y-2 ml-4">
                 <li>Исполнитель не несёт ответственности за отзывы, размещённые третьими лицами.</li>
@@ -822,7 +1003,6 @@
                 <li>Исполнитель не несёт ответственности за задержки в оказании услуг по причинам, не зависящим от него (включая сбои на платформах, технические неполадки, ограничения доступа, блокировки и др.).</li>
                 <li>Споры решаются в претензионном порядке (30 дней). Срок ответа на претензию - 10 рабочих дней.</li>
             </ol>
-
             <h4 class="font-bold mt-6 mb-2">6. Срок действия</h4>
             <ol class="list-decimal list-inside space-y-2 ml-4">
                 <li>Договор вступает в силу с момента акцепта и действует 30 календарных дней.</li>
@@ -830,18 +1010,15 @@
                 <li>Клиент вправе отказаться от услуг, уведомив Исполнителя за 3 рабочих дня. Возврат денежных средств осуществляется только за неоказанные услуги, при этом 50% оплаченной суммы является невозвратной. Возврат рассчитывается по формуле: (Оплата × 50%) × (Дни до окончания договора / 30).</li>
                 <li>Исполнитель имеет право прекратить оказание услуг без объяснения причин, уведомив Клиента за 3 рабочих дня. При этом возвращается сумма за неоказанные услуги, за вычетом 50% от стоимости тарифа, как компенсации за понесённые трудозатраты. Расчёт возврата: (Оплата × 50%) × (Дни до окончания договора / 30).</li>
             </ol>
-
             <h4 class="font-bold mt-6 mb-2">7. Контактные данные Исполнителя</h4>
             <p><strong>ФИО:</strong> Ильясов Зульфат Илдусович</p>
             <p><strong>E-mail:</strong> <a href="mailto:reputaciaplus@internet.ru" class="text-blue-600">reputaciaplus@internet.ru</a></p>
-
             <h4 class="font-bold mt-6 mb-2">8. Особые условия</h4>
             <p><strong>8.1 Уведомления считаются полученными:</strong></p>
             <ul class="list-disc list-inside ml-5 space-y-1">
                 <li><strong>Email/SMS</strong> — через 24 часа после отправки</li>
                 <li><strong>Мессенджеры</strong> — через 12 часов после отправки</li>
             </ul>
-
             <!-- Согласие на обработку персональных данных -->
             <div class="mt-8 pt-6 border-t border-gray-200">
                 <h3 class="text-xl font-bold mb-4">📄 СОГЛАСИЕ НА ОБРАБОТКУ ПЕРСОНАЛЬНЫХ ДАННЫХ</h3>
@@ -852,17 +1029,14 @@
                     <li>Ссылки на страницы компании (если предоставлены);</li>
                     <li>Контакт в мессенджере (Telegram, VK и др.).</li>
                 </ul>
-
                 <h4 class="font-bold mt-6 mb-2">1. Цель обработки</h4>
                 <p>Обработка данных осуществляется исключительно для:</p>
                 <ul class="list-disc list-inside ml-5 space-y-1">
                     <li>Оказания услуг по мониторингу и улучшению репутации в интернете;</li>
                     <li>Составления отчётов и выполнения заказов Клиента.</li>
                 </ul>
-
                 <h4 class="font-bold mt-6 mb-2">2. Правовое основание</h4>
                 <p>Обработка данных производится в соответствии с Федеральным законом №152-ФЗ «О персональных данных» от 27.07.2006.</p>
-
                 <h4 class="font-bold mt-6 mb-2">3. Условия обработки</h4>
                 <ul class="list-disc list-inside ml-5 space-y-1">
                     <li>Данные не передаются третьим лицам;</li>
@@ -870,15 +1044,12 @@
                     <li>Удаление возможно по запросу Субъекта данных.</li>
                     <li>Субъект вправе отозвать согласие, направив письмо на e-mail Исполнителя.</li>
                 </ul>
-
                 <h4 class="font-bold mt-6 mb-2">4. Безопасность</h4>
                 <p>Исполнитель принимает все разумные меры для защиты персональных данных от утечки и несанкционированного доступа.</p>
-
                 <h4 class="font-bold mt-6 mb-2">5. Контактные данные</h4>
                 <p><strong>Исполнитель:</strong> Ильясов Зульфат Илдусович</p>
                 <p><strong>E-mail:</strong> <a href="mailto:reputaciaplus@internet.ru" class="text-blue-600">reputaciaplus@internet.ru</a></p>
             </div>
-
             <div class="mt-6 text-center">
                 <button onclick="closeOfferModal()" class="bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition">
                     Закрыть
@@ -886,7 +1057,6 @@
             </div>
         </div>
     </div>
-
     <script>
         // Функции для модального окна
         function openEmailModal() {
@@ -895,7 +1065,6 @@
         function closeEmailModal() {
             document.getElementById('emailModal').classList.add('hidden');
         }
-
         // Функции для оферты
         function openOfferModal() {
             document.getElementById('offerModal').classList.remove('hidden');
@@ -903,7 +1072,6 @@
         function closeOfferModal() {
             document.getElementById('offerModal').classList.add('hidden');
         }
-
         // Анимация при скролле
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -919,7 +1087,6 @@
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('section, .feature-card, .benefit-item, .module-card').forEach(el => observer.observe(el));
-
         // Случайные позиции для плавающих иконок
         document.querySelectorAll('.floating-social').forEach(icon => {
             const top = Math.random() * 80;
@@ -927,7 +1094,6 @@
             icon.style.top = `${top}%`;
             icon.style.left = `${left}%`;
         });
-
         // Улучшенная анимация модулей с эмодзи и сменой фона
         document.querySelectorAll('.module-card').forEach(card => {
             const bgColor = card.getAttribute('data-color');
@@ -964,7 +1130,6 @@
                 effects.classList.add('hidden');
             });
         });
-
         // Анимация звезд в модулях
         document.querySelectorAll('.module-card').forEach(card => {
             const star = card.querySelector('.absolute .fa-star');
@@ -980,5 +1145,3 @@
     </script>
 </body>
 </html>
-
-
