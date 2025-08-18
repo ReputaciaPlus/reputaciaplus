@@ -661,20 +661,37 @@
         <div class="container mx-auto px-4">
             <h2 class="text-4xl font-bold text-center mb-12 stagger-animation">🚀 Готовы начать?</h2>
             <p class="text-center mb-10 text-xl stagger-animation" style="animation-delay: 0.1s">Выберите удобный способ связи с нашим менеджером:</p>
+            
+            <!-- Блок согласия на обработку ПДн -->
+            <div class="max-w-md mx-auto mb-6 stagger-animation" style="animation-delay: 0.15s">
+                <div class="flex items-start bg-purple-900 bg-opacity-50 p-4 rounded-xl">
+                    <input type="checkbox" id="pd-agreement" class="mt-1 form-checkbox h-5 w-5 text-purple-600 rounded">
+                    <label for="pd-agreement" class="ml-3 text-sm">
+                        Нажимая на кнопку, вы соглашаетесь с 
+                        <a href="#" onclick="openPrivacyPolicyModal(); return false;" class="text-purple-300 hover:text-purple-200 underline">
+                            Политикой обработки персональных данных
+                        </a>
+                    </label>
+                </div>
+            </div>
+            
             <div class="max-w-md mx-auto space-y-6">
                 <!-- Кнопка Telegram -->
                 <a href="https://t.me/Zulfatx" target="_blank" class="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white py-5 px-8 rounded-2xl font-bold transition w-full stagger-animation shadow-lg transform hover:scale-105" style="animation-delay: 0.2s;">
                     <i class="fab fa-telegram text-2xl mr-4"></i> Связаться в Telegram
                 </a>
+                
                 <!-- Кнопка WhatsApp -->
                 <a href="https://wa.me/79603706203" target="_blank" class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white py-5 px-8 rounded-2xl font-bold transition w-full stagger-animation shadow-lg transform hover:scale-105" style="animation-delay: 0.3s;">
                     <i class="fab fa-whatsapp text-2xl mr-4"></i> Написать в WhatsApp
                 </a>
+                
                 <!-- Кнопка Email с модальным окном -->
                 <button onclick="openEmailModal()" class="flex items-center justify-center bg-gray-700 hover:bg-gray-800 text-white py-5 px-8 rounded-2xl font-bold transition w-full stagger-animation shadow-lg transform hover:scale-105" style="animation-delay: 0.4s;">
                     <i class="fas fa-envelope text-2xl mr-4"></i> Написать по электронной почте
                 </button>
             </div>
+            
             <!-- Декоративные звезды -->
             <div class="flex justify-center mt-12">
                 <div class="text-yellow-400 text-4xl mx-3 animate-pulse"><i class="fas fa-star"></i></div>
@@ -960,4 +977,3 @@
     </script>
 </body>
 </html>
-
