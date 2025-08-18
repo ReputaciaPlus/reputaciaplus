@@ -167,6 +167,58 @@
             background: linear-gradient(white, white) padding-box,
                         linear-gradient(135deg, #6e48aa, #9d50bb) border-box;
         }
+        /* Добавляем стили для модального окна согласия */
+        #consentModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .consent-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+        }
+        .consent-checkbox {
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+        .consent-checkbox input {
+            margin-top: 5px;
+            margin-right: 10px;
+        }
+        .consent-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .consent-btn {
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .consent-confirm {
+            background: linear-gradient(135deg, #6e48aa, #9d50bb);
+            color: white;
+            border: none;
+        }
+        .consent-cancel {
+            background: #f1f1f1;
+            color: #333;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -677,17 +729,17 @@
             
             <div class="max-w-md mx-auto space-y-6">
                 <!-- Кнопка Telegram -->
-                <a href="https://t.me/Zulfatx" target="_blank" class="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white py-5 px-8 rounded-2xl font-bold transition w-full stagger-animation shadow-lg transform hover:scale-105" style="animation-delay: 0.2s;">
+                <button onclick="openContact('telegram')" class="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white py-5 px-8 rounded-2xl font-bold transition w-full stagger-animation shadow-lg transform hover:scale-105" style="animation-delay: 0.2s;">
                     <i class="fab fa-telegram text-2xl mr-4"></i> Связаться в Telegram
-                </a>
+                </button>
                 
                 <!-- Кнопка WhatsApp -->
-                <a href="https://wa.me/79603706203" target="_blank" class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white py-5 px-8 rounded-2xl font-bold transition w-full stagger-animation shadow-lg transform hover:scale-105" style="animation-delay: 0.3s;">
+                <button onclick="openContact('whatsapp')" class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white py-5 px-8 rounded-2xl font-bold transition w-full stagger-animation shadow-lg transform hover:scale-105" style="animation-delay: 0.3s;">
                     <i class="fab fa-whatsapp text-2xl mr-4"></i> Написать в WhatsApp
-                </a>
+                </button>
                 
                 <!-- Кнопка Email с модальным окном -->
-                <button onclick="openEmailModal()" class="flex items-center justify-center bg-gray-700 hover:bg-gray-800 text-white py-5 px-8 rounded-2xl font-bold transition w-full stagger-animation shadow-lg transform hover:scale-105" style="animation-delay: 0.4s;">
+                <button onclick="openContact('email')" class="flex items-center justify-center bg-gray-700 hover:bg-gray-800 text-white py-5 px-8 rounded-2xl font-bold transition w-full stagger-animation shadow-lg transform hover:scale-105" style="animation-delay: 0.4s;">
                     <i class="fas fa-envelope text-2xl mr-4"></i> Написать по электронной почте
                 </button>
             </div>
@@ -865,6 +917,15 @@
                 <p class="text-lg"><strong>Исполнитель:</strong> Ильясов Зульфат Илдусович</p>
                 <p class="text-lg"><strong>E-mail:</strong> <a href="mailto:reputaciaplus@internet.ru" class="text-blue-600">reputaciaplus@internet.ru</a></p>
             </div>
+                        <!-- Галочка согласия в модальном окне -->
+            <div class="mt-8 p-5 bg-purple-50 rounded-xl">
+                <label class="flex items-start">
+                    <input type="checkbox" id="offer-consent" class="mt-1 mr-3 form-checkbox h-5 w-5 text-purple-600 rounded">
+                    <span class="text-gray-700">
+                        Я прочитал и согласен с условиями договора-оферты
+                    </span>
+                </label>
+            </div>
             <div class="mt-8 text-center">
                 <button onclick="closeOfferModal()" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-8 rounded-xl hover:from-purple-700 hover:to-indigo-700 transition font-bold text-lg">
                     Закрыть
@@ -918,7 +979,15 @@
                 <h4 class="font-bold text-xl">8. Контакты</h4>
                 <p>По вопросам ПДн: <a href="mailto:reputaciaplus@internet.ru" class="text-blue-600">reputaciaplus@internet.ru</a></p>
             </div>
-            
+                        <!-- Галочка согласия в модальном окне -->
+            <div class="mt-8 p-5 bg-purple-50 rounded-xl">
+                <label class="flex items-start">
+                    <input type="checkbox" id="policy-consent" class="mt-1 mr-3 form-checkbox h-5 w-5 text-purple-600 rounded">
+                    <span class="text-gray-700">
+                        Я прочитал и согласен с Политикой обработки персональных данных
+                    </span>
+                </label>
+            </div>
             <div class="mt-8 text-center">
                 <button onclick="closePrivacyPolicyModal()" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-8 rounded-xl hover:from-purple-700 hover:to-indigo-700 transition font-bold text-lg">
                     Закрыть
@@ -926,8 +995,92 @@
             </div>
         </div>
     </div>
+    <!-- Модальное окно согласия -->
+    <div id="consentModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50" style="display: none;">
+        <div class="consent-content">
+            <h3 class="text-2xl font-bold mb-4">🔒 Согласие на обработку данных</h3>
+            <p>Для продолжения необходимо согласие с обработкой персональных данных</p>
+            
+            <div class="consent-checkbox">
+                <input type="checkbox" id="modalConsentCheckbox">
+                <label for="modalConsentCheckbox">
+                    Я соглашаюсь с 
+                    <a href="#" onclick="openPrivacyPolicyModal(); return false;" class="text-purple-600 font-medium">
+                        Политикой обработки персональных данных
+                    </a>
+                </label>
+            </div>
+            
+            <div class="consent-buttons">
+                <button class="consent-btn consent-confirm" onclick="confirmConsent()">Согласен</button>
+                <button class="consent-btn consent-cancel" onclick="closeConsentModal()">Отмена</button>
+            </div>
+        </div>
+    </div>
     <script>
-        // Функции для модального окна
+        // Переменные для хранения действия
+        let pendingAction = null;
+        
+        // Функции для работы с модальным окном согласия
+        function openConsentModal(actionType) {
+            pendingAction = actionType;
+            document.getElementById('consentModal').style.display = 'flex';
+        }
+        
+        function closeConsentModal() {
+            document.getElementById('consentModal').style.display = 'none';
+            pendingAction = null;
+        }
+        
+        function confirmConsent() {
+            const isChecked = document.getElementById('modalConsentCheckbox').checked;
+            if (isChecked) {
+                // Помечаем основной чекбокс как согласованный
+                document.getElementById('pd-agreement').checked = true;
+                closeConsentModal();
+                executePendingAction();
+            } else {
+                alert('Пожалуйста, отметьте согласие на обработку данных');
+            }
+        }
+        
+        // Функция открытия контакта
+        function openContact(type) {
+            const mainCheckbox = document.getElementById('pd-agreement');
+            
+            if (mainCheckbox && mainCheckbox.checked) {
+                // Если основная галочка отмечена
+                executeAction(type);
+            } else {
+                // Показываем модальное окно согласия
+                openConsentModal(type);
+            }
+        }
+        
+        // Выполнение действия после получения согласия
+        function executePendingAction() {
+            if (pendingAction) {
+                executeAction(pendingAction);
+                pendingAction = null;
+            }
+        }
+        
+        // Выполнение конкретного действия
+        function executeAction(type) {
+            switch(type) {
+                case 'telegram':
+                    window.open('https://t.me/Zulfatx', '_blank');
+                    break;
+                case 'whatsapp':
+                    window.open('https://wa.me/79603706203', '_blank');
+                    break;
+                case 'email':
+                    openEmailModal();
+                    break;
+            }
+        }
+        
+        // Функции для модального окна email
         function openEmailModal() {
             document.getElementById('emailModal').classList.remove('hidden');
         }
