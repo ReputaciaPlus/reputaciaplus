@@ -6,26 +6,63 @@
     <title>Репутация 5+ | Защищаем репутацию и привлекаем клиентов</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
-        body { font-family: 'Montserrat', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%); }
-        .gradient-bg-2 { background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%); }
-        .gradient-bg-3 { background: linear-gradient(135deg, #ff6b6b 0%, #ffa502 100%); }
-        .gradient-text { background: linear-gradient(135deg, #6e48aa, #9d50bb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #6d28d9;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+        }
+        
+        body { 
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fdfcff;
+            color: var(--dark);
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-bg { 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .gradient-bg-2 { 
+            background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
+        }
+        
+        .gradient-bg-3 { 
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa502 100%);
+        }
+        
+        .gradient-text { 
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+        }
+        
         .module-card { 
             transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
             transform: translateY(0);
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             border-radius: 20px;
+            border: 1px solid rgba(124, 58, 237, 0.1);
         }
+        
         .module-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
+        
         .floating-social {
             position: fixed;
             opacity: 0.08;
@@ -33,6 +70,7 @@
             pointer-events: none;
             filter: blur(1px);
         }
+        
         .floating-social.vk { color: #4c75a3; }
         .floating-social.ok { color: #f78220; }
         .floating-social.telegram { color: #0088cc; }
@@ -45,31 +83,38 @@
         .floating-social.hh { color: #0077b5; }
         .floating-social.cian { color: #4c75a3; }
         .floating-social.tiktok { color: #69C9D0; }
+        
         .decorative-star {
             position: absolute;
             opacity: 0.15;
             z-index: 0;
             pointer-events: none;
         }
+        
         .decorative-star.gold { color: #FFD700; }
         .decorative-star.silver { color: #C0C0C0; }
         .decorative-star.bronze { color: #CD7F32; }
+        
         .floating-star {
             opacity: 0.2;
         }
+        
         .stagger-animation {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.5s, transform 0.5s;
         }
+        
         .stagger-animation.visible {
             opacity: 1;
             transform: translateY(0);
         }
+        
         .emoji-animation {
             display: inline-block;
             animation: wiggle 2s ease-in-out infinite;
         }
+        
         @keyframes wiggle {
             0%, 100% { transform: rotate(0deg); }
             20% { transform: rotate(4deg); }
@@ -77,49 +122,68 @@
             60% { transform: rotate(4deg); }
             80% { transform: rotate(-4deg); }
         }
+        
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
             100% { transform: translateY(0px); }
         }
+        
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.7; }
             50% { transform: scale(1.05); opacity: 1; }
             100% { transform: scale(1); opacity: 0.7; }
         }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+        }
+        
         .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
         .animate-float { animation: float 6s ease-in-out infinite; }
         .animate-pulse { animation: pulse 3.5s ease-in-out infinite; }
+        
         .feature-card { 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform: translateY(0);
             position: relative;
             overflow: hidden;
             border-radius: 15px;
+            background: white;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
         }
+        
         .feature-card:hover { 
             transform: translateY(-10px); 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
+        
         .benefit-item { 
             transition: all 0.4s; 
             position: relative;
             overflow: hidden;
             border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
+        
         .benefit-item:hover { 
             transform: scale(1.03); 
             background-color: #f3e8ff; 
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
         }
+        
         .shine-effect {
             position: relative;
             overflow: hidden;
         }
+        
         .shine-effect::before {
             content: '';
             position: absolute;
@@ -131,18 +195,17 @@
             transform: rotate(30deg);
             animation: shine 3s infinite;
         }
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
-        }
+        
         .module-showcase {
             perspective: 1000px;
         }
+        
         .module-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
+        
         .popular-badge {
             position: absolute;
             top: 20px;
@@ -155,19 +218,118 @@
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
+        
         .price-tag {
             font-size: 1.5rem;
             font-weight: bold;
-            background: linear-gradient(135deg, #6e48aa, #9d50bb);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+        
         .highlight-card {
             border: 2px solid transparent;
             background: linear-gradient(white, white) padding-box,
-                        linear-gradient(135deg, #6e48aa, #9d50bb) border-box;
+                        linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
         }
-        /* Добавляем стили для модального окна согласия */
+        
+        /* Новые стили для улучшения дизайна */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.05;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .counter-item {
+            transition: all 0.3s ease;
+        }
+        
+        .counter-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 60px;
+            color: rgba(124, 58, 237, 0.1);
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        /* Анимация появления при скролле */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+        
+        /* Стили для модального окна согласия */
         #consentModal {
             display: none;
             position: fixed;
@@ -180,6 +342,7 @@
             align-items: center;
             justify-content: center;
         }
+        
         .consent-content {
             background: white;
             padding: 30px;
@@ -188,20 +351,24 @@
             text-align: center;
             box-shadow: 0 10px 50px rgba(0,0,0,0.3);
         }
+        
         .consent-checkbox {
             margin: 20px 0;
             display: flex;
             align-items: flex-start;
         }
+        
         .consent-checkbox input {
             margin-top: 5px;
             margin-right: 10px;
         }
+        
         .consent-buttons {
             display: flex;
             gap: 15px;
             justify-content: center;
         }
+        
         .consent-btn {
             padding: 12px 25px;
             border-radius: 12px;
@@ -209,11 +376,13 @@
             cursor: pointer;
             transition: all 0.3s;
         }
+        
         .consent-confirm {
-            background: linear-gradient(135deg, #6e48aa, #9d50bb);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
         }
+        
         .consent-cancel {
             background: #f1f1f1;
             color: #333;
@@ -239,16 +408,23 @@
     <div class="floating-social ok text-xl animate-float" style="top: 55%; right: 28%; animation-duration: 11s; animation-delay: 13s;"><i class="fab fa-odnoklassniki"></i></div>
     <div class="floating-social telegram text-lg animate-float" style="bottom: 40%; left: 40%; animation-duration: 10s; animation-delay: 14s;"><i class="fab fa-telegram"></i></div>
     <div class="floating-social yandex text-xl animate-float" style="bottom: 35%; right: 32%; animation-duration: 12s; animation-delay: 15s;"><i class="fab fa-yandex"></i></div>
+    
+    <!-- Плавающие формы для фона -->
+    <div class="floating-shape bg-purple-500 w-72 h-72 animate-float" style="top: 10%; right: 5%; animation-duration: 15s;"></div>
+    <div class="floating-shape bg-cyan-400 w-48 h-48 animate-float" style="top: 70%; left: 10%; animation-duration: 12s; animation-delay: 2s;"></div>
+    <div class="floating-shape bg-amber-300 w-36 h-36 animate-float" style="top: 30%; left: 5%; animation-duration: 18s; animation-delay: 1s;"></div>
+    
     <div class="fixed top-15 right-5 decorative-star gold text-2xl animate-pulse" style="animation-delay: 1s"><i class="fas fa-star"></i></div>
     <div class="fixed top-30 left-15 decorative-star silver text-xl animate-pulse" style="animation-delay: 2s"><i class="fas fa-star"></i></div>
     <div class="fixed bottom-25 right-10 decorative-star bronze text-2xl animate-pulse" style="animation-delay: 3s"><i class="fas fa-star"></i></div>
     <div class="fixed bottom-15 left-5 decorative-star gold text-xl animate-pulse" style="animation-delay: 4s"><i class="fas fa-star"></i></div>
+    
     <!-- Шапка -->
     <header class="gradient-bg text-white relative overflow-hidden">
         <div class="container mx-auto px-4 py-12">
             <div class="flex justify-between items-center">
                 <div class="flex items-center z-10 relative">
-                    <div class="bg-white text-purple-800 font-bold rounded-full w-16 h-16 flex items-center justify-center mr-4 animate-pulse shadow-lg">
+                    <div class="bg-white text-purple-800 font-bold rounded-full w-16 h-16 flex items-center justify-center mr-4 animate-pulse shadow-lg glow">
                         <span class="text-2xl">R+</span>
                     </div>
                     <h1 class="text-3xl font-bold">Репутация 5+</h1>
@@ -263,8 +439,8 @@
             <div class="mt-16 mb-20 text-center relative z-10">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6 animate-fadeIn">🔒 Защищаем репутацию и привлекаем клиентов</h2>
                 <p class="text-xl mb-8 max-w-3xl mx-auto animate-fadeIn" style="animation-delay:0.2s">«Репутация 5+» — это цифровой щит вашего бизнеса. Профессиональная поддержка в SMM и PR управлении стратегией развития бизнеса.</p>
-                <a href="#contact" class="bg-white text-purple-800 font-bold py-4 px-10 rounded-full hover:bg-purple-100 transition inline-block animate-fadeIn hover:animate-pulse shadow-lg text-lg">
-                    ✅ Привлечь клиентов
+                <a href="#contact" class="btn-primary font-bold py-4 px-10 rounded-full transition inline-block animate-fadeIn hover:animate-pulse shadow-lg text-lg">
+                    🤝 Привлечь клиентов
                 </a>
                 <!-- Декоративные звезды над кнопкой -->
                 <div class="flex justify-center mt-8 space-x-2">
@@ -1130,11 +1306,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
